@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: regapp-gita
+  name: deploy-regapp-gita
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: regapp-gita
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: regapp-gita
+    spec:
+      containers:
+      - image: bhanudocker3315/regapp_gita:22.3.0.23
+        imagePullPolicy: Always
+        name: regapp-gita
+        ports:
+        - containerPort: 8080
